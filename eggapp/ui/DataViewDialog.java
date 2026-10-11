@@ -7,15 +7,18 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.io.IOException;
+import java.util.Collections;
 import java.util.List;
 
 public class DataViewDialog extends JDialog {
     private JTable dataTable;
     private JButton exportButton;
+    private List<InventoryItem> items = Collections.emptyList();
 
     public DataViewDialog(JFrame parent, List<InventoryItem> items) {
         super(parent, "数据查看", true);
-        initUI(items);
+        this.items = items == null ? Collections.<InventoryItem>emptyList() : items;
+        initUI(this.items);
     }
 
     private void initUI(List<InventoryItem> items) {
@@ -62,8 +65,6 @@ public class DataViewDialog extends JDialog {
     }
 
     private List<InventoryItem> getTableData() {
-        // 从表格中获取数据并转换为 InventoryItem 列表
-        // 这里需要根据实际需求实现
-        return List.of();
+        return items;
     }
 }

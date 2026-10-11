@@ -62,9 +62,18 @@ public class InventoryManager {
                 item.getReorderPoint(),
                 item.getEggTypeId(),
                 finalCost,
-                rule.getPackagingType()
+                rule.getPackagingType(),
+                false
         );
         processedInventory.add(processedItem);
+    }
+
+    /**
+     * 处理一批库存：刷新原始库存并重新应用分拣规则（供订单流程调用）。
+     */
+    public void processInventory(List<InventoryItem> items) {
+        this.rawInventory = new ArrayList<>(items);
+        applySortingRules();
     }
 
     // 获取低库存项

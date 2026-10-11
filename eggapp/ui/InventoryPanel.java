@@ -6,6 +6,7 @@ import com.example.eggapp.utils.DataExporter;
 import javax.swing.*;
 import javax.swing.table.AbstractTableModel;
 import java.awt.*;
+import java.util.Collections;
 import java.util.List;
 
 public class InventoryPanel extends JPanel {
@@ -65,11 +66,11 @@ public class InventoryPanel extends JPanel {
 
     // 自定义表格模型
     private static class InventoryTableModel extends AbstractTableModel {
-        private List<InventoryItem> data;
+        private List<InventoryItem> data = Collections.emptyList();
         private final String[] COLUMNS = {"ID", "名称", "数量", "安全库存", "补货点", "成本价", "包装类型"};
 
         public void setData(List<InventoryItem> newData) {
-            this.data = newData;
+            this.data = newData == null ? Collections.<InventoryItem>emptyList() : newData;
             fireTableDataChanged();
         }
 
@@ -84,16 +85,16 @@ public class InventoryPanel extends JPanel {
         @Override
         public Object getValueAt(int row, int col) {
             InventoryItem item = data.get(row);
-            return switch (col) {
-                case 0 -> item.getId();
-                case 1 -> item.getName();
-                case 2 -> item.getQuantity();
-                case 3 -> item.getSafetyStock();
-                case 4 -> item.getReorderPoint();
-                case 5 -> String.format("¥%.2f", item.getCostPrice());
-                case 6 -> item.getPackagingType();
-                default -> null;
-            };
+            switch (col) {
+                case 0: return item.getId();
+                case 1: return item.getName();
+                case 2: return item.getQuantity();
+                case 3: return item.getSafetyStock();
+                case 4: return item.getReorderPoint();
+                case 5: return String.format("￥%.2f", item.getCostPrice());
+                case 6: return item.getPackagingType();
+                default: return null;
+            }
         }
     }
 }

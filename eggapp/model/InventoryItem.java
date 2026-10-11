@@ -40,6 +40,13 @@ public class InventoryItem implements Serializable {
     }
 
     /**
+     * 是否低于安全库存（与 needsReplenishment 同义，供库存预警使用）
+     */
+    public boolean isBelowSafetyStock() {
+        return quantity <= safetyStock;
+    }
+
+    /**
      * 更新库存数量（带验证）
      */
     public void updateQuantity(int delta) throws IllegalArgumentException {
@@ -71,7 +78,7 @@ public class InventoryItem implements Serializable {
 
     @Override
     public String toString() {
-        return String.format("%s (ID: %d) - 数量: %d, 成本: ¥%.2f",
+        return String.format("%s (ID: %d) - 数量: %d, 成本: ￥%.2f",
                 name, id, quantity, costPrice);
     }
 }

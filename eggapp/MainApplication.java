@@ -3,6 +3,8 @@ package com.example.eggapp;
 import com.example.eggapp.service.*;
 import com.example.eggapp.ui.*;
 
+import javax.swing.*;
+
 public class MainApplication {
     public static void main(String[] args) {
         try {
